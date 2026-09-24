@@ -1,0 +1,409 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tamiya Paint Conversion Chart — Таблица соответствия модельных красок</title>
+  <meta name="description" content="Интерактивная таблица соответствия акриловых красок Tamiya краскам Revell, Vallejo, Mr.Hobby, AMMO Mig, Humbrol, Hataka, Lifecolor, Mission Models, Testors." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-hover: #0284c7;
+      --badge-bg: #334155;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 20px;
+    }
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    header p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--card-bg);
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      margin-bottom: 20px;
+    }
+    .search-box {
+      flex: 1;
+      min-width: 260px;
+      position: relative;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 10px 14px 10px 36px;
+      background: #0f172a;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-box input:focus {
+      border-color: var(--accent);
+    }
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+    .filter-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .pill {
+      background: #0f172a;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .pill:hover, .pill.active {
+      background: var(--accent);
+      color: #0f172a;
+      border-color: var(--accent);
+      font-weight: 600;
+    }
+    .actions {
+      display: flex;
+      gap: 8px;
+    }
+    .btn {
+      background: #0284c7;
+      color: #ffffff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s;
+    }
+    .btn:hover {
+      background: #0369a1;
+    }
+    .table-container {
+      overflow-x: auto;
+      background: var(--card-bg);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.2);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+      text-align: left;
+    }
+    thead th {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 12px 14px;
+      font-weight: 600;
+      position: sticky;
+      top: 0;
+      border-bottom: 2px solid var(--border);
+      white-space: nowrap;
+    }
+    tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s;
+    }
+    tbody tr:hover {
+      background: #273549;
+    }
+    td {
+      padding: 10px 14px;
+      vertical-align: middle;
+    }
+    .code-cell {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+    .color-swatch {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.25);
+      flex-shrink: 0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      background: var(--badge-bg);
+      color: var(--text-muted);
+    }
+    .brand-val {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.82rem;
+      color: #cbd5e1;
+    }
+    .count-info {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-top: 8px;
+      text-align: right;
+    }
+    footer {
+      margin-top: 36px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      padding: 20px 0;
+      border-top: 1px solid var(--border);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Таблица соответствия красок Tamiya</h1>
+      <p>Интерактивная кросс-таблица конверсии модельных красок Tamiya (X / XF) в каталоги Revell, Vallejo, Mr.Color / Mr.Hobby, AMMO Mig, Humbrol, Hataka, Lifecolor, Mission Models, Testors.</p>
+    </header>
+
+    <div class="toolbar">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Поиск по коду (XF-60, X-11), названию или номеру аналога..." autofocus />
+      </div>
+
+      <div class="filter-pills">
+        <button class="pill active" data-filter="all">Все краски</button>
+        <button class="pill" data-filter="flat">Матовые (XF)</button>
+        <button class="pill" data-filter="gloss">Глянцевые (X)</button>
+        <button class="pill" data-filter="metallic">Металлики</button>
+        <button class="pill" data-filter="clear">Прозрачные / Лаки</button>
+      </div>
+
+      <div class="actions">
+        <button class="btn" id="exportBtn">📥 Скачать CSV</button>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <table id="paintsTable">
+        <thead>
+          <tr>
+            <th>Tamiya</th>
+            <th>Название</th>
+            <th>Тип</th>
+            <th>Revell</th>
+            <th>Vallejo</th>
+            <th>Mr.Hobby / Color</th>
+            <th>AMMO Mig</th>
+            <th>Humbrol</th>
+            <th>Hataka</th>
+            <th>Lifecolor</th>
+            <th>Mission Models</th>
+            <th>Testors / MM</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <!-- Rows injected via JS -->
+        </tbody>
+      </table>
+    </div>
+
+    <div class="count-info" id="countInfo">Отображено красок: 0</div>
+
+    <footer>
+      Собрано для масштабного моделизма • Открытый каталог • Разработано для публикации на GitHub Pages
+    </footer>
+  </div>
+
+  <script>
+    const PAINTS = [
+      { tamiya: "XF-1", hex: "#111111", name: "Flat Black (Черный матовый)", type: "Flat", revell: "08 / 36108", vallejo: "70.950 / 71.057", mrhobby: "H12 / C33", ammo: "A.MIG-046", humbrol: "33", hataka: "HTK-_100", lifecolor: "LC-02", mission: "MMP-047", testors: "1749" },
+      { tamiya: "XF-2", hex: "#f8fafc", name: "Flat White (Белый матовый)", type: "Flat", revell: "05 / 36105", vallejo: "70.951 / 71.001", mrhobby: "H11 / C62", ammo: "A.MIG-050", humbrol: "34", hataka: "HTK-_101", lifecolor: "LC-01", mission: "MMP-001", testors: "1745" },
+      { tamiya: "XF-3", hex: "#facc15", name: "Flat Yellow (Желтый матовый)", type: "Flat", revell: "15 / 36115", vallejo: "70.953 / 71.002", mrhobby: "H4 / C4", ammo: "A.MIG-048", humbrol: "24", hataka: "HTK-_066", lifecolor: "LC-03", mission: "MMP-007", testors: "1708" },
+      { tamiya: "XF-4", hex: "#a3e635", name: "Yellow Green (Желто-зеленый)", type: "Flat", revell: "362 / 36362", vallejo: "70.827 / 71.010", mrhobby: "H58 / C27", ammo: "A.MIG-219", humbrol: "81", hataka: "HTK-_025", lifecolor: "UA-004", mission: "MMP-009", testors: "1715" },
+      { tamiya: "XF-5", hex: "#15803d", name: "Flat Green (Матовый зеленый)", type: "Flat", revell: "65 / 36165", vallejo: "70.969 / 71.012", mrhobby: "H6 / C6", ammo: "A.MIG-060", humbrol: "3", hataka: "HTK-_145", lifecolor: "LC-11", mission: "MMP-008", testors: "1712" },
+      { tamiya: "XF-6", hex: "#b45309", name: "Copper (Медь)", type: "Metallic", revell: "93 / 36193", vallejo: "70.999 / 71.068", mrhobby: "H10 / C10", ammo: "A.MIG-199", humbrol: "12", hataka: "HTK-_140", lifecolor: "TM-03", mission: "MMM-007", testors: "1782" },
+      { tamiya: "XF-7", hex: "#dc2626", name: "Flat Red (Матовый красный)", type: "Flat", revell: "36 / 36136", vallejo: "70.957 / 71.003", mrhobby: "H3 / C3", ammo: "A.MIG-049", humbrol: "60", hataka: "HTK-_103", lifecolor: "LC-06", mission: "MMP-003", testors: "1705" },
+      { tamiya: "XF-8", hex: "#1d4ed8", name: "Flat Blue (Матовый синий)", type: "Flat", revell: "56 / 36156", vallejo: "70.963 / 71.004", mrhobby: "H5 / C5", ammo: "A.MIG-086", humbrol: "25", hataka: "HTK-_104", lifecolor: "LC-09", mission: "MMP-049", testors: "1719" },
+      { tamiya: "XF-9", hex: "#7f1d1d", name: "Hull Red (Суриковый / Грунтовка)", type: "Flat", revell: "37 / 36137", vallejo: "70.985 / 71.080", mrhobby: "H17 / C29", ammo: "A.MIG-014", humbrol: "100", hataka: "HTK-_175", lifecolor: "UA-702", mission: "MMP-012", testors: "1785" },
+      { tamiya: "XF-10", hex: "#451a03", name: "Flat Brown (Матовый коричневый)", type: "Flat", revell: "84 / 36184", vallejo: "70.984 / 71.038", mrhobby: "H47 / C41", ammo: "A.MIG-070", humbrol: "160", hataka: "HTK-_149", lifecolor: "UA-701", mission: "MMP-002", testors: "1701" },
+      { tamiya: "XF-11", hex: "#14532d", name: "J.N. Green (Зеленый авиа флота Японии)", type: "Flat", revell: "67 / 36167", vallejo: "70.895 / 71.322", mrhobby: "H59 / C15", ammo: "A.MIG-262", humbrol: "91", hataka: "HTK-_055", lifecolor: "UA-136", mission: "MMP-060", testors: "2115" },
+      { tamiya: "XF-12", hex: "#94a3b8", name: "J.N. Grey (Серый авиа флота Японии)", type: "Flat", revell: "76 / 36176", vallejo: "70.971 / 71.310", mrhobby: "H61 / C35", ammo: "A.MIG-263", humbrol: "196", hataka: "HTK-_056", lifecolor: "UA-137", mission: "MMP-062", testors: "2116" },
+      { tamiya: "XF-15", hex: "#fed7aa", name: "Flat Flesh (Телесный матовый)", type: "Flat", revell: "35 / 36135", vallejo: "70.955 / 71.077", mrhobby: "H44 / C51", ammo: "A.MIG-116", humbrol: "61", hataka: "HTK-_165", lifecolor: "LC-41", mission: "MFS-001", testors: "1706" },
+      { tamiya: "XF-16", hex: "#cbd5e1", name: "Flat Aluminum (Матовый алюминий)", type: "Metallic", revell: "99 / 36199", vallejo: "70.993 / 71.062", mrhobby: "H8 / C8", ammo: "A.MIG-194", humbrol: "56", hataka: "HTK-_003", lifecolor: "TM-01", mission: "MMM-001", testors: "1781" },
+      { tamiya: "XF-19", hex: "#94a3b8", name: "Sky Grey (Светло-серый авиационный)", type: "Flat", revell: "76 / 36176", vallejo: "70.989 / 71.306", mrhobby: "H67 / C115", ammo: "A.MIG-233", humbrol: "147", hataka: "HTK-_043", lifecolor: "UA-026", mission: "MMP-067", testors: "1730" },
+      { tamiya: "XF-21", hex: "#bbf7d0", name: "Sky (Британский Sky Type S)", type: "Flat", revell: "59 / 36159", vallejo: "70.972 / 71.302", mrhobby: "H74 / C26", ammo: "A.MIG-243", humbrol: "90", hataka: "HTK-_026", lifecolor: "UA-095", mission: "MMP-069", testors: "2049" },
+      { tamiya: "XF-22", hex: "#64748b", name: "RLM Grey (Немецкий серый RLM 02)", type: "Flat", revell: "45 / 36145", vallejo: "70.886 / 71.044", mrhobby: "H70 / C60", ammo: "A.MIG-217", humbrol: "92", hataka: "HTK-_023", lifecolor: "UA-501", mission: "MMP-048", testors: "2071" },
+      { tamiya: "XF-23", hex: "#7dd3fc", name: "Light Blue (Светло-голубой RLM 76)", type: "Flat", revell: "49 / 36149", vallejo: "70.906 / 71.257", mrhobby: "H67 / C117", ammo: "A.MIG-256", humbrol: "65", hataka: "HTK-_038", lifecolor: "UA-503", mission: "MMP-054", testors: "2075" },
+      { tamiya: "XF-49", hex: "#71717a", name: "Khaki (Хаки)", type: "Flat", revell: "86 / 36186", vallejo: "70.988 / 71.024", mrhobby: "H81 / C55", ammo: "A.MIG-072", humbrol: "26", hataka: "HTK-_132", lifecolor: "UA-011", mission: "MMP-023", testors: "1713" },
+      { tamiya: "XF-52", hex: "#78350f", name: "Flat Earth (Земляной матовый)", type: "Flat", revell: "87 / 36187", vallejo: "70.983 / 71.029", mrhobby: "H72 / C22", ammo: "A.MIG-075", humbrol: "29", hataka: "HTK-_134", lifecolor: "UA-084", mission: "MMP-020", testors: "1702" },
+      { tamiya: "XF-56", hex: "#475569", name: "Metallic Grey (Серый металл)", type: "Metallic", revell: "91 / 36191", vallejo: "70.863 / 71.072", mrhobby: "H18 / C28", ammo: "A.MIG-192", humbrol: "53", hataka: "HTK-_185", lifecolor: "TM-02", mission: "MMM-002", testors: "1795" },
+      { tamiya: "XF-57", hex: "#fde68a", name: "Buff (Песочно-палевый / Буфф)", type: "Flat", revell: "89 / 36189", vallejo: "70.976 / 71.075", mrhobby: "H318 / C318", ammo: "A.MIG-078", humbrol: "103", hataka: "HTK-_135", lifecolor: "UA-083", mission: "MMP-038", testors: "1742" },
+      { tamiya: "XF-59", hex: "#ca8a04", name: "Desert Yellow (Пустынный желтый)", type: "Flat", revell: "16 / 36116", vallejo: "70.977 / 71.028", mrhobby: "H79 / C39", ammo: "A.MIG-030", humbrol: "93", hataka: "HTK-_013", lifecolor: "UA-082", mission: "MMP-019", testors: "1709" },
+      { tamiya: "XF-60", hex: "#d97706", name: "Dark Yellow (Dunkelgelb / Тёмно-желтый вермахта)", type: "Flat", revell: "88 / 36188", vallejo: "70.978 / 71.025", mrhobby: "H403 / C39", ammo: "A.MIG-011", humbrol: "83", hataka: "HTK-_136", lifecolor: "UA-204", mission: "MMP-011", testors: "2095" },
+      { tamiya: "XF-61", hex: "#166534", name: "Dark Green (Тёмно-зеленый бронетанковый)", type: "Flat", revell: "68 / 36168", vallejo: "70.979 / 71.011", mrhobby: "H73 / C23", ammo: "A.MIG-012", humbrol: "117", hataka: "HTK-_137", lifecolor: "UA-205", mission: "MMP-013", testors: "2097" },
+      { tamiya: "XF-62", hex: "#3f4f2c", name: "Olive Drab (Олив Драб US Army)", type: "Flat", revell: "46 / 36146", vallejo: "70.889 / 71.016", mrhobby: "H78 / C38", ammo: "A.MIG-022", humbrol: "155", hataka: "HTK-_018", lifecolor: "UA-221", mission: "MMP-026", testors: "1711" },
+      { tamiya: "XF-63", hex: "#334155", name: "German Grey (Panzergrau / Танковый серый вермахта)", type: "Flat", revell: "78 / 36178", vallejo: "70.995 / 71.056", mrhobby: "H401 / C32", ammo: "A.MIG-008", humbrol: "67", hataka: "HTK-_138", lifecolor: "UA-208", mission: "MMP-014", testors: "2094" },
+      { tamiya: "XF-64", hex: "#713f12", name: "Red Brown (Rotbraun / Красно-коричневый камуфляж)", type: "Flat", revell: "83 / 36183", vallejo: "70.982 / 71.041", mrhobby: "H406 / C41", ammo: "A.MIG-015", humbrol: "160", hataka: "HTK-_139", lifecolor: "UA-206", mission: "MMP-012", testors: "2096" },
+      { tamiya: "XF-65", hex: "#475569", name: "Field Grey (Feldgrau / Полевой серый)", type: "Flat", revell: "67 / 36167", vallejo: "70.830 / 71.115", mrhobby: "H32 / C40", ammo: "A.MIG-054", humbrol: "111", hataka: "HTK-_035", lifecolor: "UA-401", mission: "MMP-027", testors: "2078" },
+      { tamiya: "XF-67", hex: "#22543d", name: "NATO Green (Зеленый НАТО)", type: "Flat", revell: "65 / 36165", vallejo: "70.890 / 71.093", mrhobby: "H303 / C303", ammo: "A.MIG-084", humbrol: "102", hataka: "HTK-_016", lifecolor: "UA-241", mission: "MMP-034", testors: "2125" },
+      { tamiya: "XF-68", hex: "#5c3d2e", name: "NATO Brown (Коричневый НАТО)", type: "Flat", revell: "84 / 36184", vallejo: "70.984 / 71.249", mrhobby: "H406 / C43", ammo: "A.MIG-085", humbrol: "186", hataka: "HTK-_017", lifecolor: "UA-242", mission: "MMP-035", testors: "2126" },
+      { tamiya: "XF-69", hex: "#1e293b", name: "NATO Black (Черный НАТО / Антрацит)", type: "Flat", revell: "09 / 36109", vallejo: "70.862 / 71.055", mrhobby: "H77 / C137", ammo: "A.MIG-229", humbrol: "33", hataka: "HTK-_040", lifecolor: "UA-243", mission: "MMP-046", testors: "2127" },
+      { tamiya: "XF-84", hex: "#334155", name: "Dark Iron (Тёмное железо / Цвет траков)", type: "Metallic", revell: "91 / 36191", vallejo: "70.863 / 71.073", mrhobby: "H76 / C61", ammo: "A.MIG-035", humbrol: "27004", hataka: "HTK-_186", lifecolor: "TM-06", mission: "MMM-008", testors: "1795" },
+      { tamiya: "XF-85", hex: "#0f172a", name: "Rubber Black (Черная резина бандажей)", type: "Flat", revell: "06 / 36106", vallejo: "70.862 / 71.315", mrhobby: "H77 / C137", ammo: "A.MIG-033", humbrol: "66", hataka: "HTK-_040", lifecolor: "UA-730", mission: "MMP-040", testors: "2079" },
+      { tamiya: "X-1", hex: "#000000", name: "Gloss Black (Черный глянцевый)", type: "Gloss", revell: "07 / 36107", vallejo: "70.861 / 71.057", mrhobby: "H2 / C2", ammo: "A.MIG-032", humbrol: "21", hataka: "HTK-_105", lifecolor: "LC-52", mission: "MMP-041", testors: "1747" },
+      { tamiya: "X-2", hex: "#ffffff", name: "Gloss White (Белый глянцевый)", type: "Gloss", revell: "04 / 36104", vallejo: "70.951 / 71.001", mrhobby: "H1 / C1", ammo: "A.MIG-047", humbrol: "22", hataka: "HTK-_106", lifecolor: "LC-51", mission: "MMP-042", testors: "1745" },
+      { tamiya: "X-7", hex: "#ef4444", name: "Gloss Red (Красный глянцевый)", type: "Gloss", revell: "31 / 36131", vallejo: "70.926 / 71.003", mrhobby: "H3 / C68", ammo: "A.MIG-049", humbrol: "19", hataka: "HTK-_111", lifecolor: "LC-53", mission: "MMP-003", testors: "1705" },
+      { tamiya: "X-10", hex: "#334155", name: "Gun Metal (Оружейная сталь)", type: "Metallic", revell: "91 / 36191", vallejo: "70.863 / 71.072", mrhobby: "H28 / C78", ammo: "A.MIG-192", humbrol: "53", hataka: "HTK-_187", lifecolor: "TM-02", mission: "MMM-002", testors: "1795" },
+      { tamiya: "X-11", hex: "#e2e8f0", name: "Chrome Silver (Хром серебро)", type: "Metallic", revell: "90 / 36190", vallejo: "70.997 / 71.063", mrhobby: "H8 / C8", ammo: "A.MIG-195", humbrol: "11", hataka: "HTK-_003", lifecolor: "TM-01", mission: "MMM-006", testors: "1790" },
+      { tamiya: "X-12", hex: "#eab308", name: "Gold Leaf (Золото)", type: "Metallic", revell: "94 / 36194", vallejo: "70.996 / 71.066", mrhobby: "H9 / C9", ammo: "A.MIG-197", humbrol: "16", hataka: "HTK-_141", lifecolor: "TM-04", mission: "MMM-004", testors: "1704" },
+      { tamiya: "X-18", hex: "#1e293b", name: "Semi-Gloss Black (Полуматовый черный)", type: "Semi-Gloss", revell: "302 / 36302", vallejo: "70.861 / 71.057", mrhobby: "H2 / C92", ammo: "A.MIG-032", humbrol: "85", hataka: "HTK-_100", lifecolor: "LC-72", mission: "MMP-047", testors: "1749" },
+      { tamiya: "X-22", hex: "#f8fafc", name: "Clear (Прозрачный глянцевый лак)", type: "Clear", revell: "01 / 36101", vallejo: "70.510 / 70.520", mrhobby: "H30 / C46", ammo: "A.MIG-090", humbrol: "35", hataka: "HTK-_190", lifecolor: "LC-73", mission: "MMA-006", testors: "1744" },
+      { tamiya: "X-23", hex: "#38bdf8", name: "Clear Blue (Прозрачный синий)", type: "Clear", revell: "752 / 36752", vallejo: "70.938 / 71.087", mrhobby: "H93 / C138", ammo: "A.MIG-093", humbrol: "1321", hataka: "HTK-_191", lifecolor: "LC-25", mission: "MMP-090", testors: "1606" },
+      { tamiya: "X-27", hex: "#ef4444", name: "Clear Red (Прозрачный красный)", type: "Clear", revell: "731 / 36731", vallejo: "70.934 / 71.084", mrhobby: "H90 / C47", ammo: "A.MIG-097", humbrol: "1325", hataka: "HTK-_195", lifecolor: "LC-23", mission: "MMP-094", testors: "1605" }
+    ];
+
+    const tableBody = document.getElementById("tableBody");
+    const searchInput = document.getElementById("searchInput");
+    const countInfo = document.getElementById("countInfo");
+    const pills = document.querySelectorAll(".pill");
+    let currentFilter = "all";
+
+    function renderTable() {
+      const q = searchInput.value.toLowerCase().trim();
+      tableBody.innerHTML = "";
+
+      let count = 0;
+      PAINTS.forEach(p => {
+        // Category filter
+        if (currentFilter === "flat" && !p.type.toLowerCase().includes("flat")) return;
+        if (currentFilter === "gloss" && !p.type.toLowerCase().includes("gloss")) return;
+        if (currentFilter === "metallic" && !p.type.toLowerCase().includes("metallic")) return;
+        if (currentFilter === "clear" && !p.type.toLowerCase().includes("clear")) return;
+
+        // Search text filter
+        const matchSearch = !q ||
+          p.tamiya.toLowerCase().includes(q) ||
+          p.name.toLowerCase().includes(q) ||
+          p.revell.toLowerCase().includes(q) ||
+          p.vallejo.toLowerCase().includes(q) ||
+          p.mrhobby.toLowerCase().includes(q) ||
+          p.ammo.toLowerCase().includes(q) ||
+          p.humbrol.toLowerCase().includes(q) ||
+          p.hataka.toLowerCase().includes(q) ||
+          p.lifecolor.toLowerCase().includes(q) ||
+          p.mission.toLowerCase().includes(q) ||
+          p.testors.toLowerCase().includes(q);
+
+        if (!matchSearch) return;
+
+        count++;
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>
+            <div class="code-cell">
+              <div class="color-swatch" style="background-color: ${p.hex}"></div>
+              <span>${p.tamiya}</span>
+            </div>
+          </td>
+          <td><strong>${p.name}</strong></td>
+          <td><span class="badge">${p.type}</span></td>
+          <td class="brand-val">${p.revell}</td>
+          <td class="brand-val">${p.vallejo}</td>
+          <td class="brand-val">${p.mrhobby}</td>
+          <td class="brand-val">${p.ammo}</td>
+          <td class="brand-val">${p.humbrol}</td>
+          <td class="brand-val">${p.hataka}</td>
+          <td class="brand-val">${p.lifecolor}</td>
+          <td class="brand-val">${p.mission}</td>
+          <td class="brand-val">${p.testors}</td>
+        `;
+        tableBody.appendChild(tr);
+      });
+
+      countInfo.textContent = `Отображено красок: ${count} из ${PAINTS.length}`;
+    }
+
+    searchInput.addEventListener("input", renderTable);
+
+    pills.forEach(pill => {
+      pill.addEventListener("click", () => {
+        pills.forEach(p => p.classList.remove("active"));
+        pill.classList.add("active");
+        currentFilter = pill.getAttribute("data-filter");
+        renderTable();
+      });
+    });
+
+    document.getElementById("exportBtn").addEventListener("click", () => {
+      let csv = "Tamiya;Hex;Name;Type;Revell;Vallejo;MrHobby;AMMO_Mig;Humbrol;Hataka;Lifecolor;MissionModels;Testors\n";
+      PAINTS.forEach(p => {
+        csv += `"${p.tamiya}";"${p.hex}";"${p.name}";"${p.type}";"${p.revell}";"${p.vallejo}";"${p.mrhobby}";"${p.ammo}";"${p.humbrol}";"${p.hataka}";"${p.lifecolor}";"${p.mission}";"${p.testors}"\n`;
+      });
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "tamiya_paint_conversion_chart.csv";
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    // Initial render
+    renderTable();
+  </script>
+</body>
+</html>
